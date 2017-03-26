@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 public class Man extends Person {
 	ArrayList<Person> Proposed = new ArrayList<Person>();
+	int weight;
 	
 	public Man(String Name, int index, ArrayList<Integer> prefList, Person Partner) {
 		this.Name = Name;
