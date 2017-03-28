@@ -90,7 +90,10 @@ public class StableTest {
 		for(int i = 0; i < WomenList.size(); i++) {
 			System.out.println(MenList.get(i).getName() + " -- " + MenList.get(i).getPartner().getName());
 		}
-
+		int a = 3/2;
+		int b = 5/2;
+		int c = 1/2;
+		System.out.println(a + " " + b + " " + c);
 
 		// Create an ArrayList with all men and one with all women
 		// inverseList all the women

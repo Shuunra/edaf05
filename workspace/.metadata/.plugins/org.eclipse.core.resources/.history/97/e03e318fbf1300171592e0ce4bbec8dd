@@ -1,5 +1,7 @@
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
+import java.util.PriorityQueue;
 
 public class StableTest {
 
@@ -33,25 +35,25 @@ public class StableTest {
 		ChandlerList.add(2);
 		ChandlerList.add(6);
 		ChandlerList.add(4);
-		Man Chandler = new Man("Chandler", 1, ChandlerList, null);
+		Man Chandler = new Man("Chandler", 1, RossList, null);
 		
 		ArrayList<Integer> PhoebeList = new ArrayList<Integer>();
 		PhoebeList.add(5);
 		PhoebeList.add(1);
 		PhoebeList.add(3);
-		Woman Phoebe = new Woman("Phoebe", 1, PhoebeList, null);
+		Woman Phoebe = new Woman("Phoebe", 1, RossList, null);
 		
 		ArrayList<Integer> JoeyList = new ArrayList<Integer>();
 		JoeyList.add(6);
 		JoeyList.add(4);
 		JoeyList.add(2);
-		Man Joey = new Man("Joey", 1, JoeyList, null);
+		Man Joey = new Man("Joey", 1, RossList, null);
 		
 		ArrayList<Integer> RachelList = new ArrayList<Integer>();
 		RachelList.add(1);
 		RachelList.add(5);
 		RachelList.add(3);
-		Woman Rachel = new Woman("Rachel", 1, RachelList, null);
+		Woman Rachel = new Woman("Rachel", 1, RossList, null);
 		
 		
 		
@@ -66,11 +68,11 @@ public class StableTest {
 		ArrayDeque<Man> Proposers = new ArrayDeque<Man>();
 		Proposers.addAll(MenList);
 		while (!Proposers.isEmpty()) {
-			int i = 0;
+			int i = 0; // Kommer bli fel med indexering, fixa
 			Man Proposer = Proposers.poll();
 			while (Proposer.getPartner() == null) {
 				int toPropose = Proposer.getList().get(i);
-				Woman Proposed = WomenList.get(toPropose/2-1);		//Snyggare implementering?
+				Woman Proposed = WomenList.get(toPropose);
 				if (Proposed.getPartner() == null) {
 					Proposer.setPartner(Proposed);
 					Proposed.setPartner(Proposer);
@@ -90,7 +92,6 @@ public class StableTest {
 		for(int i = 0; i < WomenList.size(); i++) {
 			System.out.println(MenList.get(i).getName() + " -- " + MenList.get(i).getPartner().getName());
 		}
-
 
 		// Create an ArrayList with all men and one with all women
 		// inverseList all the women

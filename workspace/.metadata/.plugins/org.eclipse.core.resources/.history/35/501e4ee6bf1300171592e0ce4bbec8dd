@@ -15,7 +15,7 @@ public class Woman extends Person {
 		//for(int i=0; i < prefList.size(); i++) {
 		//	tempVector[prefList.get(i)] = i;
 		//}
-		ArrayList<Integer> tempList = new ArrayList<Integer>();		//Snyggare implementering?
+		ArrayList<Integer> tempList = new ArrayList<Integer>();
 		for (int i = 0; i < prefList.size()*2; i++) {
 			tempList.add(-1);
 		}
