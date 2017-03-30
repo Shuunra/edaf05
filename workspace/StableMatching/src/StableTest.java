@@ -1,5 +1,7 @@
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 
@@ -18,100 +20,122 @@ public class StableTest {
 	}
 
 	public static void main(String[] args) {
+
+		String filename = "C:\\Users\\Myky\\Documents\\edaf05_2\\algdes-labs-master\\matching\\data\\sm-bbt-in.txt";
+
+		ArrayList<Man> MenList = new ArrayList<Man>();
+		ArrayList<Woman> WomenList = new ArrayList<Woman>();
 		
-		//String filename = "C:\\Users\\Myky\\Documents\\edaf05_2\\algdes-labs-master\\matching\\data\\sm-friends-in.txt";
-		
-		BufferedReader br = new BufferedReader(new FileReader(""));
-	    try {
-	        String line = br.readLine();
-	        int couples = Integer.parseInt(line);
-	        
-	        ArrayList<Person> allPeople = new ArrayList<Person>();
-	        for (int i = 1; i <= couples*2; i++) {
-	        	line = br.readLine();
-		        String[] parts = line.split(" ");
-		        int nbr = Integer.parseInt(parts[0]);
-		        String name = parts[1];
-		        if (nbr % 2 == 0) {
-		        	Woman wom = new Woman(name, nbr, null, null);
-		        	allPeople.add(wom);
-		        } else {
-		        	Man man = new Man(name, nbr, null, null);
-		        	allPeople.add(man);
-		        }
-		        
-	        }
-		        
-		        line = br.readLine();
-		        String[] array = line.split(" +");
-		        
-		        for(int k = 0; k < couples*2; k++) {
-		        	ArrayList<Integer> prefList = new ArrayList<Integer>();
-		        	for(int i = 1; i < array.length; i++) {
-		        	prefList.add(i);
-		        	}	
-		        allPeople.get(k).setPrefList(prefList); 
-		        }
-		        
-		        ArrayList<Man> MenList = new ArrayList<Man>();
-		        ArrayList<Woman> WomenList = new ArrayList<Woman>();
-		        for(int j = 0; j < couples*2; j++) {
-		        	if (j % 2 == 0) {
-		        		MenList.add(allPeople.get(j));
-		        	} else {
-		        		WomenList.add(allPeople.get(j));
-		        	}
-	    } finally {
-	        br.close();
-	    }
-	}
-		
-//		ArrayList<Integer> RossList = new ArrayList<Integer>();
-//		RossList.add(6);
-//		RossList.add(4);
-//		RossList.add(2);
-//		Man Ross = new Man("Ross", 1, RossList, null);
-//		
-//		ArrayList<Integer> MonicaList = new ArrayList<Integer>();
-//		MonicaList.add(3);
-//		MonicaList.add(5);
-//		MonicaList.add(1);
-//		Woman Monica = new Woman("Monica", 1, MonicaList, null);
-//		
-//		ArrayList<Integer> ChandlerList = new ArrayList<Integer>();
-//		ChandlerList.add(2);
-//		ChandlerList.add(6);
-//		ChandlerList.add(4);
-//		Man Chandler = new Man("Chandler", 1, ChandlerList, null);
-//		
-//		ArrayList<Integer> PhoebeList = new ArrayList<Integer>();
-//		PhoebeList.add(5);
-//		PhoebeList.add(1);
-//		PhoebeList.add(3);
-//		Woman Phoebe = new Woman("Phoebe", 1, PhoebeList, null);
-//		
-//		ArrayList<Integer> JoeyList = new ArrayList<Integer>();
-//		JoeyList.add(6);
-//		JoeyList.add(4);
-//		JoeyList.add(2);
-//		Man Joey = new Man("Joey", 1, JoeyList, null);
-//		
-//		ArrayList<Integer> RachelList = new ArrayList<Integer>();
-//		RachelList.add(1);
-//		RachelList.add(5);
-//		RachelList.add(3);
-//		Woman Rachel = new Woman("Rachel", 1, RachelList, null);
-//		
-//		
-		
-		//ArrayList<Man> MenList = new ArrayList<Man>();
-//		MenList.add(Ross);
-//		MenList.add(Chandler);
-//		MenList.add(Joey);
-		//ArrayList<Woman> WomenList = new ArrayList<Woman>();
-//		WomenList.add(Monica);
-//		WomenList.add(Phoebe);
-//		WomenList.add(Rachel);
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(filename));
+			String line = br.readLine();
+			while (line.charAt(0) == '#') {
+				line = br.readLine();
+			}
+			//line = br.readLine();
+			//line = br.readLine();
+			String[] parts = line.split("=");
+			int couples = Integer.parseInt(parts[1]);
+
+			ArrayList<Person> allPeople = new ArrayList<Person>();
+			for (int i = 1; i <= couples * 2; i++) {
+
+				line = br.readLine();
+				parts = line.split(" ");
+				int index = Integer.parseInt(parts[0]);
+				String name = parts[1];
+				if (index % 2 == 0) {
+					Woman wom = new Woman(name, index);
+					allPeople.add(wom);
+				} else {
+					Man man = new Man(name, index, null, null);
+					allPeople.add(man);
+				}
+
+			}
+
+			line = br.readLine(); // Tom
+			line = br.readLine();
+			String[] array = line.split(" |\\: +");
+
+			for (int k = 0; k < couples * 2; k++) {
+				ArrayList<Integer> prefList = new ArrayList<Integer>();
+				for (int i = 1; i < array.length; i++) {
+					prefList.add(Integer.parseInt(array[i]));
+				}
+				allPeople.get(k).setPrefList(prefList);
+				line = br.readLine();
+				if (line != null) {
+					array = line.split(" |\\: +");
+				}
+			}
+
+			for (int j = 0; j < couples * 2; j++) {
+				if (j % 2 == 0) {
+					MenList.add((Man) allPeople.get(j));
+				} else {
+					WomenList.add((Woman) allPeople.get(j));
+				}
+			}
+		}
+			catch (FileNotFoundException e) {
+				System.out.print("File not found exception");
+			}
+			
+			catch (IOException e) {
+				System.out.print("I/O exception");
+				
+			}
+//		finally {
+//			br.close();
+//		}
+
+		// ArrayList<Integer> RossList = new ArrayList<Integer>();
+		// RossList.add(6);
+		// RossList.add(4);
+		// RossList.add(2);
+		// Man Ross = new Man("Ross", 1, RossList, null);
+		//
+		// ArrayList<Integer> MonicaList = new ArrayList<Integer>();
+		// MonicaList.add(3);
+		// MonicaList.add(5);
+		// MonicaList.add(1);
+		// Woman Monica = new Woman("Monica", 1, MonicaList, null);
+		//
+		// ArrayList<Integer> ChandlerList = new ArrayList<Integer>();
+		// ChandlerList.add(2);
+		// ChandlerList.add(6);
+		// ChandlerList.add(4);
+		// Man Chandler = new Man("Chandler", 1, ChandlerList, null);
+		//
+		// ArrayList<Integer> PhoebeList = new ArrayList<Integer>();
+		// PhoebeList.add(5);
+		// PhoebeList.add(1);
+		// PhoebeList.add(3);
+		// Woman Phoebe = new Woman("Phoebe", 1, PhoebeList, null);
+		//
+		// ArrayList<Integer> JoeyList = new ArrayList<Integer>();
+		// JoeyList.add(6);
+		// JoeyList.add(4);
+		// JoeyList.add(2);
+		// Man Joey = new Man("Joey", 1, JoeyList, null);
+		//
+		// ArrayList<Integer> RachelList = new ArrayList<Integer>();
+		// RachelList.add(1);
+		// RachelList.add(5);
+		// RachelList.add(3);
+		// Woman Rachel = new Woman("Rachel", 1, RachelList, null);
+		//
+		//
+
+		// ArrayList<Man> MenList = new ArrayList<Man>();
+		// MenList.add(Ross);
+		// MenList.add(Chandler);
+		// MenList.add(Joey);
+		// ArrayList<Woman> WomenList = new ArrayList<Woman>();
+		// WomenList.add(Monica);
+		// WomenList.add(Phoebe);
+		// WomenList.add(Rachel);
 		ArrayDeque<Man> Proposers = new ArrayDeque<Man>();
 		Proposers.addAll(MenList);
 		while (!Proposers.isEmpty()) {
@@ -119,7 +143,8 @@ public class StableTest {
 			Man Proposer = Proposers.poll();
 			while (Proposer.getPartner() == null) {
 				int toPropose = Proposer.getList().get(i);
-				Woman Proposed = WomenList.get(toPropose/2-1);		//Snyggare implementering?
+				Woman Proposed = WomenList.get(toPropose / 2 - 1); // Snyggare
+																	// implementering?
 				if (Proposed.getPartner() == null) {
 					Proposer.setPartner(Proposed);
 					Proposed.setPartner(Proposer);
@@ -136,13 +161,11 @@ public class StableTest {
 				}
 			}
 		}
-		for(int i = 0; i < WomenList.size()-1; i++) {
+		for (int i = 0; i < WomenList.size(); i++) {
 			System.out.println(MenList.get(i).getName() + " -- " + MenList.get(i).getPartner().getName());
 		}
-		
-//		System.out.print(MenList.get(WomenList.size()-1).getName() + " -- " + MenList.get(WomenList.size()-1).getPartner().getName());
-		
 
+		//System.out.print(MenList.get(WomenList.size()-1).getName() + " -- " + MenList.get(WomenList.size()-1).getPartner().getName());
 
 		// Create an ArrayList with all men and one with all women
 		// inverseList all the women

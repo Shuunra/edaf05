@@ -23,4 +23,7 @@ public class Man extends Person {
 		Proposed.add(Lover);
 	}
 	
+	public void setPrefList(ArrayList<Integer> list) {
+		this.prefList = list;
+	}
 }

@@ -2,6 +2,11 @@ import java.util.ArrayList;
 
 public class Woman extends Person {
 	
+	public Woman(String Name, int index) {
+		this.Name = Name;
+		this.index = index;
+	}
+	
 	public Woman(String Name, int index, ArrayList<Integer> prefList, Person Partner) {
 		this.Name = Name;
 		this.index = index;
@@ -23,6 +28,10 @@ public class Woman extends Person {
 			tempList.set(prefList.get(i)-1, i);
 		}
 		return tempList;
+	}
+	
+	public void setPrefList(ArrayList<Integer> list) {
+		this.prefList = inverseList(list);
 	}
 	
 }

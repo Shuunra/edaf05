@@ -26,8 +26,6 @@ public abstract class Person {
 		this.Partner = Partner;
 	}
 	
-	public void setPrefList(ArrayList<Integer> list) {
-		this.prefList = list;
-	}
+	public abstract void setPrefList(ArrayList<Integer> list);
 }
 

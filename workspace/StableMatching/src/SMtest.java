@@ -66,7 +66,7 @@ public class SMtest {
 	 */
 	@Test
 	public void testFriends() {
-		runTestCase("sm-friends");
+		runTestCase("sm-bbt");
 	}
 
 	/**
