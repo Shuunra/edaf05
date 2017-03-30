@@ -84,15 +84,18 @@ public class StableTest {
 			while (Proposer.getPartner() == null) {
 				int toPropose = Proposer.getList().get(i);
 				Woman Proposed = WomenList.get(toPropose / 2 - 1);
+				if (!Proposer.hasProposed(Proposed)) {
 				if (Proposed.getPartner() == null) {
 					Proposer.setPartner(Proposed);
 					Proposed.setPartner(Proposer);
+					Proposer.proposedTo(Proposed);
 				} else {
 					Man oldPartner = (Man) Proposed.getPartner();
 					if (Proposed.getList().get(Proposer.getIndex() - 1) < Proposed.getList()
 							.get(oldPartner.getIndex() - 1)) {
 						Proposed.setPartner(Proposer);
 						Proposer.setPartner(Proposed);
+						Proposer.proposedTo(Proposed);
 						oldPartner.setPartner(null);
 						Proposers.add(oldPartner);
 					} else {
@@ -100,6 +103,7 @@ public class StableTest {
 					}
 				}
 			}
+		}
 		}
 		for (int i = 0; i < WomenList.size(); i++) {
 			System.out.println(MenList.get(i).getName() + " -- " + MenList.get(i).getPartner().getName());
