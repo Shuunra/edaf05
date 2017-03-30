@@ -5,11 +5,10 @@ import org.junit.Test;
 
 import java.io.*;
 
-
 public class SMtest {
 	private final static String TESTDATA_DIR = "C:\\Users\\Shintai\\Desktop\\edaf05\\algdes-labs-master\\matching\\data";
 	private final static char SC = File.separatorChar;
-	
+
 	/**
 	 * Method to run an actual test case.
 	 * 
@@ -29,14 +28,12 @@ public class SMtest {
 		PrintStream ps = new PrintStream(baos);
 		System.setOut(ps);
 
-		
 		String[] args = new String[1];
 		args[0] = infile;
 		StableTest.main(args); // FIXME: Change GS to your own class!
-	
 
 		/*
-		 * Restore stdout 
+		 * Restore stdout
 		 */
 		System.setOut(oldOut);
 
@@ -60,21 +57,21 @@ public class SMtest {
 			fail("Error reading " + outfile);
 		}
 	}
-	
+
 	/**
 	 * Simple test case for the 'friends' test data.
 	 */
-//	@Test
-//	public void testFriends() {
-//		runTestCase("sm-illiad");
-//	}
-//
-//	/**
-//	 * Test case that will use all test data it can find in TESTDATA_DIR.
-//	 * 
-//	 * You may want to comment this out until you think your program works, as
-//	 * this test can take some time to execute.
-//	 */
+	// @Test
+	// public void testFriends() {
+	// runTestCase("sm-illiad");
+	// }
+	//
+	// /**
+	// * Test case that will use all test data it can find in TESTDATA_DIR.
+	// *
+	// * You may want to comment this out until you think your program works, as
+	// * this test can take some time to execute.
+	// */
 	@Test
 	public void testAll() {
 		File dir = new File(TESTDATA_DIR);
@@ -89,7 +86,5 @@ public class SMtest {
 			}
 		}
 	}
-
-
 
 }
