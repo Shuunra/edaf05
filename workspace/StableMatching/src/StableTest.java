@@ -21,7 +21,7 @@ public class StableTest {
 
 	public static void main(String[] args) {
 
-		String filename = "C:\\Users\\Myky\\Documents\\edaf05_2\\algdes-labs-master\\matching\\data\\sm-bbt-in.txt";
+		String filename = "C:\\Users\\Shintai\\Desktop\\edaf05\\algdes-labs-master\\matching\\data\\sm-illiad-in.txt";
 
 		ArrayList<Man> MenList = new ArrayList<Man>();
 		ArrayList<Woman> WomenList = new ArrayList<Woman>();
@@ -63,13 +63,16 @@ public class StableTest {
 				for (int i = 1; i < array.length; i++) {
 					prefList.add(Integer.parseInt(array[i]));
 				}
-				allPeople.get(k).setPrefList(prefList);
+				int placer = Integer.parseInt(array[0])-1;
+				allPeople.get(placer).setPrefList(prefList);
 				line = br.readLine();
 				if (line != null) {
 					array = line.split(" |\\: +");
 				}
 			}
 
+			br.close();
+			
 			for (int j = 0; j < couples * 2; j++) {
 				if (j % 2 == 0) {
 					MenList.add((Man) allPeople.get(j));
@@ -150,7 +153,7 @@ public class StableTest {
 					Proposed.setPartner(Proposer);
 				} else {
 					Man oldPartner = (Man) Proposed.getPartner();
-					if (Proposed.getList().get(Proposer.getIndex()) < Proposed.getList().get(oldPartner.getIndex())) {
+					if (Proposed.getList().get(Proposer.getIndex()-1) < Proposed.getList().get(oldPartner.getIndex()-1)) {
 						Proposed.setPartner(Proposer);
 						Proposer.setPartner(Proposed);
 						oldPartner.setPartner(null);

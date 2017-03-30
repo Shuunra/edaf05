@@ -7,7 +7,7 @@ import java.io.*;
 
 
 public class SMtest {
-	private final static String TESTDATA_DIR = "C:\\Users\\Myky\\Documents\\edaf05_2\\algdes-labs-master\\matching\\data";
+	private final static String TESTDATA_DIR = "C:\\Users\\Shintai\\Desktop\\edaf05\\algdes-labs-master\\matching\\data";
 	private final static char SC = File.separatorChar;
 	
 	/**
@@ -64,31 +64,31 @@ public class SMtest {
 	/**
 	 * Simple test case for the 'friends' test data.
 	 */
-	@Test
-	public void testFriends() {
-		runTestCase("sm-bbt");
-	}
-
-	/**
-	 * Test case that will use all test data it can find in TESTDATA_DIR.
-	 * 
-	 * You may want to comment this out until you think your program works, as
-	 * this test can take some time to execute.
-	 */
 //	@Test
-//	public void testAll() {
-//		File dir = new File(TESTDATA_DIR);
-//
-//		for (File f : dir.listFiles()) {
-//			if (f.isFile() && f.toString().endsWith(".out")) {
-//				String s = f.toString();
-//				s = s.substring(s.lastIndexOf(SC) + 1);
-//				s = s.substring(0, s.lastIndexOf(".out"));
-//
-//				runTestCase(s);
-//			}
-//		}
+//	public void testFriends() {
+//		runTestCase("sm-illiad");
 //	}
+//
+//	/**
+//	 * Test case that will use all test data it can find in TESTDATA_DIR.
+//	 * 
+//	 * You may want to comment this out until you think your program works, as
+//	 * this test can take some time to execute.
+//	 */
+	@Test
+	public void testAll() {
+		File dir = new File(TESTDATA_DIR);
+
+		for (File f : dir.listFiles()) {
+			if (f.isFile() && f.toString().endsWith(".out")) {
+				String s = f.toString();
+				s = s.substring(s.lastIndexOf(SC) + 1);
+				s = s.substring(0, s.lastIndexOf(".out"));
+
+				runTestCase(s);
+			}
+		}
+	}
 
 
 
