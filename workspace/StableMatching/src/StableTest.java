@@ -80,11 +80,13 @@ public class StableTest {
 		ArrayDeque<Man> Proposers = new ArrayDeque<Man>();
 		Proposers.addAll(MenList);
 		while (!Proposers.isEmpty()) {
-			int i = 0;
 			Man Proposer = Proposers.poll();
+			int i = Proposer.getPref();
 			while (Proposer.getPartner() == null) {
+				i = Proposer.getPref();
 				int toPropose = Proposer.getList().get(i);
 				Woman Proposed = WomenList.get(toPropose / 2 - 1);
+				Proposer.incPref();
 				if (Proposed.getPartner() == null) {
 					Proposer.setPartner(Proposed);
 					Proposed.setPartner(Proposer);
@@ -96,8 +98,6 @@ public class StableTest {
 						Proposer.setPartner(Proposed);
 						oldPartner.setPartner(null);
 						Proposers.add(oldPartner);
-					} else {
-						i++;
 					}
 				}
 			}
