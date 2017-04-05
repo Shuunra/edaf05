@@ -14,6 +14,12 @@ public class Edge {
 		return dist;
 	}
 	
+	public City cityU() {
+		return u;
+	}
 	
+	public City cityV() {
+		return v;
+	}
 
 }

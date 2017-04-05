@@ -1,10 +1,13 @@
 import java.util.ArrayList;
-import java.util.Comparator;
 
 public class City implements Comparable<Edge>{
 	String name;
 	int dist;
 	ArrayList<Edge> allEdges = new ArrayList<Edge>();
+	
+	public City (String name) {
+		this.name = name;
+	}
 	
 	public City (String name, int dist, ArrayList<Edge> allEdges) {
 		this.name = name;
@@ -30,6 +33,10 @@ public class City implements Comparable<Edge>{
 	
 	public int getDist() {
 		return dist;
+	}
+	
+	public void addEdge(Edge e) {
+		allEdges.add(e);
 	}
 	
 	

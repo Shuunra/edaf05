@@ -1,20 +1,66 @@
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.PriorityQueue;
 
 
 public class SpanningMain {
 	
-	//public static void main(String[] args) {
+	public static void main(String[] args) {
 		
-		public ArrayList<Edge> Prim (ArrayList<City> cities, ArrayList<Edge> edges) {
+		ArrayList<City> cities = new ArrayList<City>();
+		ArrayList<Edge> edges = new ArrayList<Edge>();
+		
+		String filename = args[0];
+		
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(filename));
+			String line = br.readLine();
+			while (line.charAt(line.length()) != ']') {
+				cities.add(new City(line));
+				br.readLine();
+			}
+			
+			while(br.ready()) {
+				String[] parts = line.split("--| |\\[|\\]");//Add a + mby? Delimiters are --, blanksteg, [ och ]
+				String U = parts[0];
+				City b = cities.get(0);//Gotta fix getting ahold of city...
+				String V = parts[1];
+				City a = cities.get(1);
+				String dist = parts[2];
+				Integer dis = Integer.parseInt(dist);
+				Edge E = new Edge(a,b,dis);
+				a.addEdge(E);
+				b.addEdge(E);
+				edges.add(E);
+				
+				br.close();
+			}
+		}
+		catch (FileNotFoundException e) {
+			System.out.print("File not found exception");
+		}
+
+		catch (IOException e) {
+			System.out.print("I/O exception");
+
+		}
+
+	}
+	
+		public void Prim(ArrayList<City> cities, ArrayList<Edge> edges) {
 			PriorityQueue<City> pq = new PriorityQueue<City>();
 			ArrayList<City> spanningTree = new ArrayList<City>();
 			//spanningTree.add(cities.get(0));
 			
+			
+			
 			int inf = Integer.MAX_VALUE;
 			for (City c : cities) {
-				c.setDist(inf);
+				c.setDist(inf); //Kan fixa detta i City konstruktor senare
 				pq.add(c);
 			}
 			
