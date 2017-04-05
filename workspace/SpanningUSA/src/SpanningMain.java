@@ -25,8 +25,8 @@ public class SpanningMain {
 			}
 			
 			while(br.ready()) {
-				String[] parts = line.split("--| |\\[|\\]");//Add a + mby? Delimiters are --, blanksteg, [ och ]
-				String U = parts[0];
+				String[] parts = line.split("--|\"|\\[|\\]");//Add a + mby? Delimiters are --, ", [ and ]
+				String U = parts[0];						 //Also problem with splitting using blank space and "
 				City b = cities.get(0);//Gotta fix getting ahold of city...
 				String V = parts[1];
 				City a = cities.get(1);
@@ -62,6 +62,9 @@ public class SpanningMain {
 			for (City c : cities) {
 				c.setDist(inf); //Kan fixa detta i City konstruktor senare
 				pq.add(c);
+				City a = pq.poll();
+				a.setDist(0);
+				pq.add(a);
 			}
 			
 			while (!pq.isEmpty()) {
@@ -83,8 +86,11 @@ public class SpanningMain {
 				}
 							
 		}
-		
-		
+		int totalDist = 0;
+		for(int i=0;i<spanningTree.size();i++) {
+			totalDist = totalDist + spanningTree.get(i).getDist();
+		}
+		System.out.println(totalDist);
 		
 		
 
