@@ -21,8 +21,8 @@ public class City implements Comparable<Edge>{
 
 	@Override
 	public int compareTo(Edge e) {
-		if (dist > e.dist) {
-			dist = e.dist;
+		if (dist > e.getDist()) {
+			dist = e.getDist();
 		}
 		return dist;
 	}
