@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.PriorityQueue;
 
 
@@ -51,50 +52,50 @@ public class SpanningMain {
 
 	}
 	
-		public void Prim(ArrayList<City> cities, ArrayList<Edge> edges) {
+		public void Prims (HashMap<String, City> hm, ArrayList<String> cities) {
 			PriorityQueue<City> pq = new PriorityQueue<City>();
 			ArrayList<City> spanningTree = new ArrayList<City>();
-			//spanningTree.add(cities.get(0));
 			
-			
-			
-			int inf = Integer.MAX_VALUE;
-			for (City c : cities) {
-				c.setDist(inf); //Kan fixa detta i City konstruktor senare
-				pq.add(c);
-				City a = pq.poll();
-				a.setDist(0);
-				pq.add(a);
+			for (String c : cities) {
+				pq.add(hm.get(c));
 			}
+			City a = pq.poll();
+			a.setDist(0);
+			pq.add(a);
 			
 			while (!pq.isEmpty()) {
-				City u = pq.poll();
+				City u = pq.poll(); // source
 				spanningTree.add(u);
 				for (int i = 0; i < u.getEdges().size(); i++) {
+					//City v = u.getEdges().get(i).cityV();
+					//if (!spanningTree.contains(v)) {
 					if (spanningTree.contains(u.getEdges().get(i).cityU()) && spanningTree.contains(u.getEdges().get(i).cityV())) {
+						
 						City v;
 						if (u == u.getEdges().get(i).cityU()) {
 							v = u.getEdges().get(i).cityV();
 						} else {
 							v = u.getEdges().get(i).cityU();
 						}
-						if ((u.getEdges().get(i).getDist() < v.getDist()) && i < (u.getEdges().size() - 1)) {
+						if ((u.getEdges().get(i).getDist() < v.getDist())) {
 							v.setDist(u.getEdges().get(i).getDist());
 						}
 					}
 					
 				}
 							
+			}
+			
+			int totalDist = 0;
+			for(int i=0; i < spanningTree.size(); i++) {
+				totalDist = totalDist + spanningTree.get(i).getDist();
+			}
+			System.out.println(totalDist);
+			
+			
 		}
-		int totalDist = 0;
-		for(int i=0;i<spanningTree.size();i++) {
-			totalDist = totalDist + spanningTree.get(i).getDist();
-		}
-		System.out.println(totalDist);
-		
-		
 
-		}
+	}
 
 	 
 	
