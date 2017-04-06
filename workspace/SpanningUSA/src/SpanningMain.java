@@ -18,21 +18,20 @@ public class SpanningMain {
 		//ArrayList<City> cities = new ArrayList<City>();
 		//ArrayList<Edge> edges = new ArrayList<Edge>();
 		
-		String filename = "C:\\Users\\Myky\\Documents\\edaf05_2\\algdes-labs-master\\spanning-usa\\data\\USA-highway-miles.txt";
+		//String filename = "C:\\Users\\Myky\\Documents\\edaf05_2\\algdes-labs-master\\spanning-usa\\data\\USA-highway-miles.txt";
 		//String filename = "C:\\Users\\Myky\\Documents\\edaf05_2\\algdes-labs-master\\spanning-usa\\data\\tinyEWG-alpha.txt";
-		//String filename = "C:\\Users\\Shintai\\Desktop\\edaf05\\algdes-labs-master\\spanning-usa\\data\\tinyEWG-alpha.txt";
+		String filename = "C:\\Users\\Shintai\\Desktop\\edaf05\\algdes-labs-master\\spanning-usa\\data\\tinyEWG-alpha.txt";
+		//String filename = "C:\\Users\\Shintai\\Desktop\\edaf05\\algdes-labs-master\\spanning-usa\\data\\USA-highway-miles.txt";
 		
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(filename));
 			String line = br.readLine().trim();
-			int i = 0;
 			while (line.charAt(line.length()-1) != ']' ) { //find metod?
 				//if (line.charAt(0) == '"' ) {
 					//line = line.substring(1, line.length() - 1);
 				//}
 				cities.put(line, new City(line));
 				cityName.add(line);
-				i++;
 				line = br.readLine().trim();
 			}
 
