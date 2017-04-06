@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class City implements Comparable<Edge>{
 	String name;
-	int dist;
+	int dist = Integer.MAX_VALUE;
 	ArrayList<Edge> allEdges = new ArrayList<Edge>();
 	
 	public City (String name) {

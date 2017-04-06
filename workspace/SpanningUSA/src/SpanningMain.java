@@ -12,31 +12,39 @@ public class SpanningMain {
 	
 	public static void main(String[] args) {
 		
-		ArrayList<City> cities = new ArrayList<City>();
-		ArrayList<Edge> edges = new ArrayList<Edge>();
+		HashMap<String, City> cities = new HashMap<String, City>();
+		ArrayList<String> cityName = new ArrayList<String>();
 		
-		String filename = args[0];
+		//ArrayList<City> cities = new ArrayList<City>();
+		//ArrayList<Edge> edges = new ArrayList<Edge>();
+		
+		//String filename = "C:\\Users\\Myky\\Documents\\edaf05_2\\algdes-labs-master\\spanning-usa\\data\\USA-highway-miles.txt";
+		String filename = "C:\\Users\\Myky\\Documents\\edaf05_2\\algdes-labs-master\\spanning-usa\\data\\tinyEWG-alpha.txt";		
 		
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(filename));
 			String line = br.readLine();
-			while (line.charAt(line.length()) != ']') {
-				cities.add(new City(line));
-				br.readLine();
+			int i = 0;
+			while (line.charAt(line.length()-1) != ']' ) {
+				if (line.charAt(0) == '"' ) {
+					line = line.substring(1, line.length() - 1);
+				}
+				cities.put(line, new City(line));
+				cityName.add(line);
+				i++;
+				line = br.readLine();
 			}
-			
-			while(br.ready()) {
-				String[] parts = line.split("--|\"|\\[|\\]");//Add a + mby? Delimiters are --, ", [ and ]
+			while(br.readLine() != null) {
+				String[] parts = line.split("--|\"|\\[|\\]+");//Add a + mby? Delimiters are --, ", [ and ]
 				String U = parts[0];						 //Also problem with splitting using blank space and "
-				City b = cities.get(0);//Gotta fix getting ahold of city...
+				City b = cities.get(U);//Gotta fix getting ahold of city...
 				String V = parts[1];
-				City a = cities.get(1);
+				City a = cities.get(V);
 				String dist = parts[2];
-				Integer dis = Integer.parseInt(dist);
+				int dis = Integer.parseInt(dist);
 				Edge E = new Edge(a,b,dis);
 				a.addEdge(E);
 				b.addEdge(E);
-				edges.add(E);
 				
 				br.close();
 			}
@@ -64,13 +72,11 @@ public class SpanningMain {
 			pq.add(a);
 			
 			while (!pq.isEmpty()) {
-				City u = pq.poll(); // source
+				City u = pq.poll();
 				spanningTree.add(u);
 				for (int i = 0; i < u.getEdges().size(); i++) {
-					//City v = u.getEdges().get(i).cityV();
-					//if (!spanningTree.contains(v)) {
-					if (spanningTree.contains(u.getEdges().get(i).cityU()) && spanningTree.contains(u.getEdges().get(i).cityV())) {
-						
+					if ((!spanningTree.contains(u.getEdges().get(i).cityU()) && spanningTree.contains(u.getEdges().get(i).cityV())) ||
+							(spanningTree.contains(u.getEdges().get(i).cityU()) && !spanningTree.contains(u.getEdges().get(i).cityV()))) {
 						City v;
 						if (u == u.getEdges().get(i).cityU()) {
 							v = u.getEdges().get(i).cityV();
@@ -100,4 +106,4 @@ public class SpanningMain {
 	 
 	
 
-}
+
