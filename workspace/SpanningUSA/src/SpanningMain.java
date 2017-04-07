@@ -13,7 +13,9 @@ public class SpanningMain {
 	public static void main(String[] args) {
 
 		HashMap<String, City> cities = new HashMap<String, City>();
+		HashMap<String, Edge> edges = new HashMap<String, Edge>();
 		ArrayList<String> cityName = new ArrayList<String>();
+		ArrayList<String> edgeKey = new ArrayList<String>();
 		int minDist = Integer.MAX_VALUE;
 		Edge minEdgeDist = null;
 
@@ -22,7 +24,8 @@ public class SpanningMain {
 
 		//String filename = "C:\\Users\\Myky\\Documents\\edaf05_2\\algdes-labs-master\\spanning-usa\\data\\USA-highway-miles.txt";
 		//String filename = "C:\\Users\\Myky\\Documents\\edaf05_2\\algdes-labs-master\\spanning-usa\\data\\tinyEWG-alpha.txt";
-		String filename = "C:\\Users\\Shintai\\Desktop\\edaf05\\algdes-labs-master\\spanning-usa\\data\\tinyEWG-alpha.txt";
+		//String filename = "C:\\Users\\Shintai\\Desktop\\edaf05\\algdes-labs-master\\spanning-usa\\data\\tinyEWG-alpha.txt";
+		String filename = "C:\\Users\\Shintai\\Desktop\\edaf05\\algdes-labs-master\\spanning-usa\\data\\tinyEWG-beta.txt";
 		//String filename = "C:\\Users\\Shintai\\Desktop\\edaf05\\algdes-labs-master\\spanning-usa\\data\\USA-highway-miles.txt";
 
 
@@ -51,6 +54,8 @@ public class SpanningMain {
 				Edge E2 = new Edge(b,a,dis);
 				a.addEdge(E);
 				b.addEdge(E2);
+				edges.put(line,E);
+				edgeKey.add(line);
 
 				if (minDist > dis) {
 					minDist = dis;
@@ -72,7 +77,7 @@ public class SpanningMain {
 
 		}
 
-		Prims(cities ,cityName, minEdgeDist);
+		PrimsE(edges ,edgeKey, minEdgeDist);
 	}
 
 		public static void Prims (HashMap<String, City> hm, ArrayList<String> cities, Edge minEdge) {
@@ -131,6 +136,56 @@ public class SpanningMain {
 			int totalDist = 0;
 			for(int i=0; i < spanningTree.size(); i++) {
 				totalDist = totalDist + spanningTree.get(i).getDist();
+			}
+			System.out.println(totalDist);
+
+
+		}
+		
+		public static void PrimsE (HashMap<String, Edge> hm, ArrayList<String> edger, Edge minEdge) {
+			//PriorityQueue<Edge> pq = new PriorityQueue<Edge>();
+			PriorityQueue<Edge> pq2 = new PriorityQueue<Edge>();
+			ArrayList<City> spanningTree = new ArrayList<City>();
+			ArrayList<Edge> spanningEdge = new ArrayList<Edge>();
+			
+			Edge ed = minEdge;
+			City cit = ed.cityU();
+			City ci = ed.cityV();
+			spanningTree.add(cit);
+			spanningTree.add(ci);
+			spanningEdge.add(ed);
+			for(int i = 0; i < cit.allEdges.size(); i++) {
+				if(!spanningEdge.contains(cit.allEdges.get(i))) {
+					pq2.add(cit.allEdges.get(i));
+				}
+			}
+			for(int i = 0; i < ci.allEdges.size(); i++) {
+				if(!spanningEdge.contains(ci.allEdges.get(i))) {
+					pq2.add(ci.allEdges.get(i));
+				}
+			}
+			
+			while (!pq2.isEmpty()) {
+				Edge u = pq2.poll();
+				if(!spanningTree.contains(u.cityV())) {
+					City c = u.cityV();
+					spanningTree.add(c);
+					spanningEdge.add(u);
+					for(int i = 0; i < c.allEdges.size(); i++) {
+						if(!spanningEdge.contains(c.allEdges.get(i))) {
+						pq2.add(c.allEdges.get(i));
+						}
+					}
+				}
+				
+
+
+
+			}
+
+			int totalDist = 0;
+			for(int i=0; i < spanningEdge.size(); i++) {
+				totalDist = totalDist + spanningEdge.get(i).getDist();
 			}
 			System.out.println(totalDist);
 

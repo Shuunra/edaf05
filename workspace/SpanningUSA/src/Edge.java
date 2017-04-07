@@ -1,5 +1,5 @@
 
-public class Edge {
+public class Edge implements Comparable<Edge> {
 	int dist;
 	City u;
 	City v;
@@ -20,6 +20,17 @@ public class Edge {
 	
 	public City cityV() {
 		return v;
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		Edge e = (Edge) o;
+		return dist - e.getDist() == 0;
+	}
+
+	@Override
+	public int compareTo(Edge e) {
+		return dist - e.getDist();
 	}
 
 }

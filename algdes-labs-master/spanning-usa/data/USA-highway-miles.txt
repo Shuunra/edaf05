@@ -1,131 +1,131 @@
-"San Diego"
-"San Antonio"
-"San Francisco"
-Washington
-"San Jose"
-Toronto
-Winnipeg
-Seattle
-"Saint Louis"
-Vancouver
-Tulsa
-Toledo
-Tucson
-Wichita
-Sacramento
-Tampa
-"Saint Paul"
-Rochester
-Richmond
-Shreveport
-"Santa Ana"
-Spokane
-Syracuse
-"Salt Lake City"
-Regina
-Worcester
-Tacoma
-Springfield
-Stockton
-Savannah
-Rockford
-Wilmington
-"Springfield, MO"
-"Winston-Salem"
-"San Bernardino"
-Youngstown
-Topeka
-"South Bend"
-Waterbury
-Waco
-Reno
-Roanoke
-"Springfield, IL"
-"Wichita Falls"
-Trenton
-Salem
-Scranton
-"Santa Rosa"
-"Sioux City"
-Tallahassee
-"Sioux Falls"
-Salinas
-Reading
-Saginaw
-"Saint Joseph"
-Waterloo
-Utica
-Tuscaloosa
-"Santa Barbara"
-"San Angelo"
-"Springfield, OH"
-Tyler
-"Wilmington, DE"
-Schenectady
-Waukegan
-"West Palm Beach"
-"Terre Haute"
-"Rochester, MN"
-Victoria
-Yakima
-"Santa Fe"
-Sarasota
-Salida
-Wheeling
-"Saint Cloud"
-Salina
-"Richmond, IN"
-"Rocky Mount"
-Roswell
-Valdosta
-Williamsport
-Wausau
-Sandusky
-Texarkana
-Sherman
-Watertown
-Selma
-Steubenville
-"Twin Falls"
-"Walla Walla"
-Vicksburg
-Sumter
-Tupelo
-"Stevens Point"
-Staunton
-Sedalia
-Vincennes
-Winchester
-"Rock Springs"
-Waycross
-Rutland
-Wenatchee
-Salisbury
-"Watertown, SD"
-"Traverse City"
-Sheridan
-Uniontown
-"Sault Sainte Marie"
-Scottsbluff
-Williston
-Warren
-Yankton
-Ravenna
-"Saint Augustine"
-Sterling
-Trinidad
-"Saint Joseph, MI"
-"Red Bluff"
-Seminole
-Rhinelander
-"Valley City"
-Swainsboro
-"Saint Johnsbury"
-Richfield
-Williamson
-Stroudsburg
-Weed
-"Wisconsin Dells"
+"San Diego" 
+"San Antonio" 
+"San Francisco" 
+Washington 
+"San Jose" 
+Toronto 
+Winnipeg 
+Seattle 
+"Saint Louis" 
+Vancouver 
+Tulsa 
+Toledo 
+Tucson 
+Wichita 
+Sacramento 
+Tampa 
+"Saint Paul" 
+Rochester 
+Richmond 
+Shreveport 
+"Santa Ana" 
+Spokane 
+Syracuse 
+"Salt Lake City" 
+Regina 
+Worcester 
+Tacoma 
+Springfield 
+Stockton 
+Savannah 
+Rockford 
+Wilmington 
+"Springfield, MO" 
+"Winston-Salem" 
+"San Bernardino" 
+Youngstown 
+Topeka 
+"South Bend" 
+Waterbury 
+Waco 
+Reno 
+Roanoke 
+"Springfield, IL" 
+"Wichita Falls" 
+Trenton 
+Salem 
+Scranton 
+"Santa Rosa" 
+"Sioux City" 
+Tallahassee 
+"Sioux Falls" 
+Salinas 
+Reading 
+Saginaw 
+"Saint Joseph" 
+Waterloo 
+Utica 
+Tuscaloosa 
+"Santa Barbara" 
+"San Angelo" 
+"Springfield, OH" 
+Tyler 
+"Wilmington, DE" 
+Schenectady 
+Waukegan 
+"West Palm Beach" 
+"Terre Haute" 
+"Rochester, MN" 
+Victoria 
+Yakima 
+"Santa Fe" 
+Sarasota 
+Salida 
+Wheeling 
+"Saint Cloud" 
+Salina 
+"Richmond, IN" 
+"Rocky Mount" 
+Roswell 
+Valdosta 
+Williamsport 
+Wausau 
+Sandusky 
+Texarkana 
+Sherman 
+Watertown 
+Selma 
+Steubenville 
+"Twin Falls" 
+"Walla Walla" 
+Vicksburg 
+Sumter 
+Tupelo 
+"Stevens Point" 
+Staunton 
+Sedalia 
+Vincennes 
+Winchester 
+"Rock Springs" 
+Waycross 
+Rutland 
+Wenatchee 
+Salisbury 
+"Watertown, SD" 
+"Traverse City" 
+Sheridan 
+Uniontown 
+"Sault Sainte Marie" 
+Scottsbluff 
+Williston 
+Warren 
+Yankton 
+Ravenna 
+"Saint Augustine" 
+Sterling 
+Trinidad 
+"Saint Joseph, MI" 
+"Red Bluff" 
+Seminole 
+Rhinelander 
+"Valley City" 
+Swainsboro 
+"Saint Johnsbury" 
+Richfield 
+Williamson 
+Stroudsburg 
+Weed 
+"Wisconsin Dells" 
 "San Diego"--"San Antonio" [1319]
 "San Diego"--"San Francisco" [524]
 "San Diego"--Washington [2686]

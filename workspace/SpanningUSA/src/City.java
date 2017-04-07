@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class City implements Comparable<City>{
+public class City{
 	String name;
 	int dist = Integer.MAX_VALUE;
 	ArrayList<Edge> allEdges = new ArrayList<Edge>();
@@ -19,16 +19,16 @@ public class City implements Comparable<City>{
 		dist = shortestDist;
 	}
 	
-	@Override
-	public boolean equals(Object o) {
-		City c = (City) o;
-		return dist - c.getDist() == 0;
-	}
-
-	@Override
-	public int compareTo(City c) {
-		return dist - c.getDist();
-	}
+//	@Override
+//	public boolean equals(Object o) {
+//		City c = (City) o;
+//		return dist - c.getDist() == 0;
+//	}
+//
+//	@Override
+//	public int compareTo(City c) {
+//		return dist - c.getDist();
+//	}
 	
 	public ArrayList<Edge> getEdges () {
 		return allEdges;

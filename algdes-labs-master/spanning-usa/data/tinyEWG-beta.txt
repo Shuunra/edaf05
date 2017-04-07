@@ -1,0 +1,24 @@
+"A, Jo bl"go die""
+B
+C
+D
+"go die"
+Sanni"go die"Franni"go die"
+G
+H
+"go die"--Sanni"go die"Franni"go die" [35]
+"go die"--H [37]
+Sanni"go die"Franni"go die"--H [28]
+"A, Jo bl"go die""--H [16]
+B--Sanni"go die"Franni"go die" [32]
+"A, Jo bl"go die""--"go die" [38]
+C--D [17]
+B--H [19]
+"A, Jo bl"go die""--C [26]
+B--C [36]
+B--D [29]
+C--H [34]
+G--C [40]
+D--G [52]
+G--"A, Jo bl"go die"" [58]
+G--"go die" [93]
