@@ -20,9 +20,8 @@ public class SpanningMain {
 		// "C:\\Users\\Myky\\Documents\\edaf05_2\\algdes-labs-master\\spanning-usa\\data\\tinyEWG-alpha.txt";
 		// String filename =
 		// "C:\\Users\\Shintai\\Desktop\\edaf05\\algdes-labs-master\\spanning-usa\\data\\tinyEWG-alpha.txt";
-		String filename = "/Users/richardluong/Downloads/edaf05-master 2/in3/USA-highway-miles.in";
-		// String filename =
-		// "C:\\Users\\Shintai\\Desktop\\edaf05\\algdes-labs-master\\spanning-usa\\data\\USA-highway-miles.txt";
+		//String filename = "/Users/richardluong/Downloads/edaf05-master 2/in3/USA-highway-miles.in";
+		 String filename = "C:\\Users\\Shintai\\Desktop\\edaf05\\algdes-labs-master\\spanning-usa\\data\\USA-highway-miles.txt";
 
 		try {
 
@@ -72,15 +71,15 @@ public class SpanningMain {
 		
 		PriorityQueue<City> q = new PriorityQueue<City>();
 
-//		FOR EACH v : d(v) ← ∞; Already done at initialization of city object.
+//		FOR EACH v : d(v) ; Already done at initialization of city object.
 		
 //		FOR EACH v : insert v with key d(v) into priority queue.		
 		for (City c : cities) {
 			q.offer(c);
 		}
 
-//		s ← any node in V.
-//		d(s) ← 0.
+//		s any node in V.
+//		d(s)  0.
 		City s = q.poll();
 		s.dist = 0;
 		q.offer(s);
@@ -90,16 +89,16 @@ public class SpanningMain {
 
 //		WHILE (the priority queue is not empty)
 		while(!q.isEmpty()) {
-//			u ← delete-min from priority queue.
+//			u  delete-min from priority queue.
 			City u = q.poll();
 			total += u.dist;
-//			FOR EACH edge (u, v) ∈ E incident to u:
+//			FOR EACH edge (u, v) E incident to u:
 			for (Edge edge : u.allEdges) {
 
 //				IF d(v) > c(u, v)
 				if (edge.v.dist > edge.dist) {
 //					decrease-key of v to c(u, v) in priority queue.
-//					d(v) ← c(u, v).
+//					d(v) = c(u, v).
 					edge.v.dist = edge.dist;
 				}
 				

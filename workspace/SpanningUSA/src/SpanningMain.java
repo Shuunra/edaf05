@@ -25,8 +25,8 @@ public class SpanningMain {
 		//String filename = "C:\\Users\\Myky\\Documents\\edaf05_2\\algdes-labs-master\\spanning-usa\\data\\USA-highway-miles.txt";
 		//String filename = "C:\\Users\\Myky\\Documents\\edaf05_2\\algdes-labs-master\\spanning-usa\\data\\tinyEWG-alpha.txt";
 		//String filename = "C:\\Users\\Shintai\\Desktop\\edaf05\\algdes-labs-master\\spanning-usa\\data\\tinyEWG-alpha.txt";
-		String filename = "C:\\Users\\Shintai\\Desktop\\edaf05\\algdes-labs-master\\spanning-usa\\data\\tinyEWG-beta.txt";
-		//String filename = "C:\\Users\\Shintai\\Desktop\\edaf05\\algdes-labs-master\\spanning-usa\\data\\USA-highway-miles.txt";
+		//String filename = "C:\\Users\\Shintai\\Desktop\\edaf05\\algdes-labs-master\\spanning-usa\\data\\tinyEWG-beta.txt";
+		String filename = "C:\\Users\\Shintai\\Desktop\\edaf05\\algdes-labs-master\\spanning-usa\\data\\USA-highway-miles.txt";
 
 
 		try {
@@ -147,6 +147,7 @@ public class SpanningMain {
 			PriorityQueue<Edge> pq2 = new PriorityQueue<Edge>();
 			ArrayList<City> spanningTree = new ArrayList<City>();
 			ArrayList<Edge> spanningEdge = new ArrayList<Edge>();
+			int totalDist = 0;
 			
 			Edge ed = minEdge;
 			City cit = ed.cityU();
@@ -154,6 +155,7 @@ public class SpanningMain {
 			spanningTree.add(cit);
 			spanningTree.add(ci);
 			spanningEdge.add(ed);
+			totalDist = ed.getDist();
 			for(int i = 0; i < cit.allEdges.size(); i++) {
 				if(!spanningEdge.contains(cit.allEdges.get(i))) {
 					pq2.add(cit.allEdges.get(i));
@@ -171,6 +173,7 @@ public class SpanningMain {
 					City c = u.cityV();
 					spanningTree.add(c);
 					spanningEdge.add(u);
+					totalDist = totalDist + u.getDist();
 					for(int i = 0; i < c.allEdges.size(); i++) {
 						if(!spanningEdge.contains(c.allEdges.get(i))) {
 						pq2.add(c.allEdges.get(i));
@@ -183,10 +186,10 @@ public class SpanningMain {
 
 			}
 
-			int totalDist = 0;
-			for(int i=0; i < spanningEdge.size(); i++) {
-				totalDist = totalDist + spanningEdge.get(i).getDist();
-			}
+//			int totalDist = 0;
+//			for(int i=0; i < spanningEdge.size(); i++) {
+//				totalDist = totalDist + spanningEdge.get(i).getDist();
+//			}
 			System.out.println(totalDist);
 
 
