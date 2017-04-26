@@ -31,7 +31,47 @@ public class CPMain {
 	// Create P_x and P_y with Mergesort
 
 	public ArrayList<Point> MergeSortX(ArrayList<Point> P) {
-		return null;
+		ArrayList<Point> SortedList = new ArrayList<Point>();
+		// Base case
+		if (P.size() < 2) {
+			return P;
+		}
+
+		// Create left/right list
+		ArrayList<Point> LeftList = new ArrayList<Point>();
+		ArrayList<Point> RightList = new ArrayList<Point>();
+		for (int i = 0; i < P.size(); i++) {
+			if (i < P.size() / 2) {
+				LeftList.add(P.get(i));
+			} else {
+				RightList.add(P.get(i));
+			}
+		}
+
+		// Recursive call
+		ArrayList<Point> SortedLeftList = MergeSortX(LeftList);
+		ArrayList<Point> SortedRightList = MergeSortX(RightList);
+
+		// Merge algorithm (comparisons)
+		int a = 0;
+		int b = 0;
+		while (!SortedLeftList.isEmpty() || !SortedRightList.isEmpty()) {
+			if (SortedLeftList.get(a) != null || SortedRightList.get(b) != null) {
+				if (SortedLeftList.get(a).getXD() < SortedRightList.get(b).getXD()) {
+					SortedList.add(SortedLeftList.get(a));
+					a++;
+				} else {
+					SortedList.add(SortedRightList.get(b));
+					b++;
+				}
+			} else if(SortedLeftList.get(a) == null) {
+				SortedList.add(SortedRightList.get(b));
+			} else {
+				SortedList.add(SortedLeftList.get(b));
+			}
+		}
+
+		return SortedList;
 	}
 
 	public ArrayList<Point> MergeSortY(ArrayList<Point> P) {
