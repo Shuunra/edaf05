@@ -1,3 +1,7 @@
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class CPMain {
@@ -6,16 +10,46 @@ public class CPMain {
 		// Layout:
 		//
 		// Parsing:
-		// br.readNextLine() until last char can be parseInt
-		// delimiters: whitespace, e
-		// check size of row split
-		// if contains '.' => parseDouble
-		// else if size = +1 => parseScientific
-		// else parseInt, might be unneeded though
-		//
-		// parseX:
-		// Create Point object with specified parse method
-		// Store in list P
+		String filename = "C:\\Users\\Shintai\\Desktop\\edaf05\\algdes-labs-master\\closest-points\\data\\a280-tsp.txt";
+		
+		
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(filename));
+			String line = br.readLine().trim();
+			
+			// skip until coords
+			while(line != "NODE_COORD_SECTION") {
+				line = br.readLine().trim();
+			}
+			line = br.readLine().trim();
+			
+			// delimiters: whitespace, e
+			String[] parts = line.split("e\\+|\\s");
+			
+			// check size of row split
+			if(parts.length == 3) {
+				//parseDouble or parseInt (try both?)
+			} else {
+				//parseScientific
+			}
+			
+			// if contains '.' => parseDouble
+			// else if size = +1 => parseScientific
+			// else parseInt, might be unneeded though, depends on implementation of Point
+			//
+			// Create Point object with specified parse method
+			// Store in list P
+			
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+
 		//
 		//
 		//
