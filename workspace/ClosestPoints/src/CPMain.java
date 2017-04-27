@@ -17,7 +17,7 @@ public class CPMain {
 			BufferedReader br = new BufferedReader(new FileReader(filename));
 			String line = br.readLine().trim();
 			
-			// skip until coords
+			// skip until coordinates, handle 3 different cases (tsp, instance, in)
 			while(line != "NODE_COORD_SECTION") {
 				line = br.readLine().trim();
 			}

@@ -1,8 +1,8 @@
 
 public class Point {
 
-	int xInt;
-	int yInt;
+//	int xInt;
+//	int yInt;
 	double xDouble;
 	double yDouble;
 
