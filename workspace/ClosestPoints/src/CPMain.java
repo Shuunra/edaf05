@@ -10,61 +10,99 @@ public class CPMain {
 		// Layout:
 		//
 		// Parsing:
-		String filename = "C:\\Users\\Shintai\\Desktop\\edaf05\\algdes-labs-master\\closest-points\\data\\a280-tsp.txt";
+		String filename = "C:\\Users\\Shintai\\Desktop\\edaf05\\algdes-labs-master\\closest-points\\data\\ulysses16-tsp.txt";
+		ArrayList<Point> Plist = new ArrayList<Point>();
 		
-		
-		try {
-			BufferedReader br = new BufferedReader(new FileReader(filename));
-			String line = br.readLine().trim();
-			
-			// skip until coordinates, handle 3 different cases (tsp, instance, in)
-			while(line != "NODE_COORD_SECTION") {
-				line = br.readLine().trim();
-			}
-			line = br.readLine().trim();
-			
-			// delimiters: whitespace, e
-			String[] parts = line.split("e\\+|\\s");
-			
-			// check size of row split
-			if(parts.length == 3) {
-				//parseDouble or parseInt (try both?)
-			} else {
-				//parseScientific
-			}
-			
-			// if contains '.' => parseDouble
-			// else if size = +1 => parseScientific
-			// else parseInt, might be unneeded though, depends on implementation of Point
-			//
-			// Create Point object with specified parse method
-			// Store in list P
+		 try {
+		 BufferedReader br = new BufferedReader(new FileReader(filename));
+		 String line = br.readLine().trim();
+		//
+		// // skip until coordinates, handle 3 different cases (tsp, instance,
+		// in)
+		 while(line.contains(":") || line.contains("_")) {
+		 line = br.readLine().trim();
+		 }
+		 
+		 while(!line.contains("EOF")) {
+			 String[] parts = line.split("\\s+");
+			 double x = Double.parseDouble(parts[1].trim());
+			 double y = Double.parseDouble(parts[2].trim());
+			 Point p = new Point(x, y);
+			 Plist.add(p);
+			 line = br.readLine().trim();
+		 }
+		 
+			ArrayList<Point> Px = MergeSortX(Plist);
+			ArrayList<Point> Py = MergeSortY(Plist);
+			PointPair sol = CPRecursive(Px, Py);
+			System.out.println(sol.getDist());
 			
 			
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+		//
+		// // delimiters: whitespace, e
+		// String[] parts = line.split("e\\+|\\s");
+		//
+		// // check size of row split
+		// if(parts.length == 3) {
+		// //parseDouble or parseInt (try both?)
+		// } else {
+		// //parseScientific
+		// }
+		//
+		// // if contains '.' => parseDouble
+		// // else if size = +1 => parseScientific
+		// // else parseInt, might be unneeded though, depends on implementation
+		// of Point
+		// //
+		// // Create Point object with specified parse method
+		// // Store in list P
+		//
+		//
+		 } catch (FileNotFoundException e) {
+		 // TODO Auto-generated catch block
+		 e.printStackTrace();
+		 } catch (IOException e) {
+		 // TODO Auto-generated catch block
+		 e.printStackTrace();
+		 }
 
 		//
 		//
 		//
 
 		// Don't forget to print the distance
+//		ArrayList<Point> P = new ArrayList<Point>();
+//		Point p1 = new Point(20, 40);
+//		Point p2 = new Point(20.05, 27);
+//		Point p3 = new Point(-5, 35);
+//		Point p4 = new Point(-10.67, 0);
+//		Point p5 = new Point(32, 56.65);
+//		Point p6 = new Point(15, 15);
+//		Point p7 = new Point(15, 17);
+//		Point p8 = new Point(-10.15, 100);
+//		P.add(p1);
+//		P.add(p2);
+//		P.add(p3);
+//		P.add(p4);
+//		P.add(p5);
+//		P.add(p6);
+//		P.add(p7);
+//		P.add(p8);
+//		ArrayList<Point> Px = MergeSortX(P);
+//		ArrayList<Point> Py = MergeSortY(P);
+//		PointPair sol = CPRecursive(Px, Py);
+//		System.out.println(sol.getDist());
 	}
 
 	// Algorithm:
 
 	// Input list P
-	ArrayList<Point> P = new ArrayList<Point>(); // Should be created in parsing
-													// stage
+	// ArrayList<Point> P = new ArrayList<Point>(); // Should be created in
+	// parsing
+	// stage
 	// Create P_x and P_y with Mergesort
 
-	public ArrayList<Point> MergeSortX(ArrayList<Point> P) {
+	public static ArrayList<Point> MergeSortX(ArrayList<Point> P) {
 		ArrayList<Point> SortedList = new ArrayList<Point>();
 		// Base case
 		if (P.size() < 2) {
@@ -89,8 +127,8 @@ public class CPMain {
 		// Merge algorithm (comparisons)
 		int a = 0;
 		int b = 0;
-		while (!SortedLeftList.isEmpty() || !SortedRightList.isEmpty()) {
-			if (SortedLeftList.get(a) != null || SortedRightList.get(b) != null) {
+		while (SortedLeftList.size() != a && SortedRightList.size() != b) {
+			if (SortedLeftList.size() != a || SortedRightList.size() != b) {
 				if (SortedLeftList.get(a).getXD() < SortedRightList.get(b).getXD()) {
 					SortedList.add(SortedLeftList.get(a));
 					a++;
@@ -98,26 +136,76 @@ public class CPMain {
 					SortedList.add(SortedRightList.get(b));
 					b++;
 				}
-			} else if(SortedLeftList.get(a) == null) {
+			}
+		}
+		if (SortedLeftList.size() == a) {
+			for (int i = b; i < SortedRightList.size(); i++) {
 				SortedList.add(SortedRightList.get(b));
-			} else {
-				SortedList.add(SortedLeftList.get(b));
+			}
+		} else {
+			for (int i = a; i < SortedLeftList.size(); i++) {
+				SortedList.add(SortedLeftList.get(i));
 			}
 		}
 
 		return SortedList;
 	}
 
-	public ArrayList<Point> MergeSortY(ArrayList<Point> P) {
-		return null;
+	public static ArrayList<Point> MergeSortY(ArrayList<Point> P) {
+		ArrayList<Point> SortedList = new ArrayList<Point>();
+		// Base case
+		if (P.size() < 2) {
+			return P;
+		}
+
+		// Create left/right list
+		ArrayList<Point> LeftList = new ArrayList<Point>();
+		ArrayList<Point> RightList = new ArrayList<Point>();
+		for (int i = 0; i < P.size(); i++) {
+			if (i < P.size() / 2) {
+				LeftList.add(P.get(i));
+			} else {
+				RightList.add(P.get(i));
+			}
+		}
+
+		// Recursive call
+		ArrayList<Point> SortedLeftList = MergeSortY(LeftList);
+		ArrayList<Point> SortedRightList = MergeSortY(RightList);
+
+		// Merge algorithm (comparisons)
+		int a = 0;
+		int b = 0;
+		while (SortedLeftList.size() != a && SortedRightList.size() != b) {
+			if (SortedLeftList.size() != a || SortedRightList.size() != b) {
+				if (SortedLeftList.get(a).getYD() < SortedRightList.get(b).getYD()) {
+					SortedList.add(SortedLeftList.get(a));
+					a++;
+				} else {
+					SortedList.add(SortedRightList.get(b));
+					b++;
+				}
+			}
+		}
+		if (SortedLeftList.size() == a) {
+			for (int i = b; i < SortedRightList.size(); i++) {
+				SortedList.add(SortedRightList.get(b));
+			}
+		} else {
+			for (int i = a; i < SortedLeftList.size(); i++) {
+				SortedList.add(SortedLeftList.get(a));
+			}
+		}
+
+		return SortedList;
 	}
 
-	ArrayList<Point> Px = MergeSortX(P);
-	ArrayList<Point> Py = MergeSortY(P);
+	// ArrayList<Point> Px = MergeSortX(P);
+	// ArrayList<Point> Py = MergeSortY(P);
 
 	// public ArrayList<Point> CPRecursive(ArrayList<Point> Px, ArrayList<Point>
 	// Py) {
-	public PointPair CPRecursive(ArrayList<Point> Px, ArrayList<Point> Py) {
+	public static PointPair CPRecursive(ArrayList<Point> Px, ArrayList<Point> Py) {
 		PointPair minPair = null;
 
 		// Call recursive part P_x,y
@@ -136,6 +224,7 @@ public class CPMain {
 					}
 				}
 			}
+			return minPair;
 		}
 
 		// Split P_x,y into Q_x,y and R_x,y
@@ -145,7 +234,7 @@ public class CPMain {
 		ArrayList<Point> Ry = new ArrayList<Point>();
 
 		for (int i = 0; i < Px.size(); i++) {
-			if (i <= Px.size() / 2) {
+			if (i < Px.size() / 2) {
 				Qx.add(Px.get(i));
 			} else {
 				Rx.add(Px.get(i));
@@ -153,7 +242,7 @@ public class CPMain {
 		}
 
 		for (int i = 0; i < Py.size(); i++) {
-			if (i <= Py.size() / 2) {
+			if (i < Py.size() / 2) {
 				Qy.add(Py.get(i));
 			} else {
 				Ry.add(Py.get(i));
@@ -172,9 +261,11 @@ public class CPMain {
 		// PointPair deltaPair;
 		if (dQ < dR) {
 			delta = dQ;
+			minPair = QPair;
 			// deltaPair = QPair;
 		} else {
 			delta = dR;
+			minPair = RPair;
 			// deltaPair = RPair;
 		}
 
@@ -191,7 +282,7 @@ public class CPMain {
 		// Construct S_y (go through whole P, check for points within delta
 		// distance in x coords)
 		for (int i = 0; i < Px.size(); i++) {
-			if (Math.abs(Px.get(i).getXD()) <= delta) {
+			if (Math.abs(Qx.get(Qx.size() - 1).getXD() - Px.get(i).getXD()) <= delta) {
 				S.add(Px.get(i));
 			}
 		}
@@ -201,12 +292,14 @@ public class CPMain {
 		// (s,s') is minimum dist pair
 		for (int i = 0; i < Sy.size(); i++) {
 			for (int j = i + 1; j < i + 16; j++) {
-				Point s1 = Sy.get(i);
-				Point s2 = Sy.get(j);
-				double dist = s1.getDist(s2);
-				PointPair SPair = new PointPair(s1, s2, dist);
-				if (dist < minPair.getDist()) {
-					minPair = SPair;
+				if (j < Sy.size()) {
+					Point s1 = Sy.get(i);
+					Point s2 = Sy.get(j);
+					double dist = s1.getDist(s2);
+					PointPair SPair = new PointPair(s1, s2, dist);
+					if (dist < minPair.getDist()) {
+						minPair = SPair;
+					}
 				}
 			}
 		}
