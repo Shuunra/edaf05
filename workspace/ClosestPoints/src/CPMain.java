@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class CPMain {
@@ -10,31 +11,48 @@ public class CPMain {
 		// Layout:
 		//
 		// Parsing:
-		String filename = "C:\\Users\\Shintai\\Desktop\\edaf05\\algdes-labs-master\\closest-points\\data\\ulysses16-tsp.txt";
+//		String filename = "C:\\Users\\Shintai\\Desktop\\edaf05\\algdes-labs-master\\closest-points\\data\\u159-tsp.txt";
 		ArrayList<Point> Plist = new ArrayList<Point>();
 		
 		 try {
-		 BufferedReader br = new BufferedReader(new FileReader(filename));
+		 //BufferedReader br = new BufferedReader(new FileReader(filename));
+		 BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		 int nbrPoints = Integer.parseInt(br.readLine().trim());
 		 String line = br.readLine().trim();
+		 
+		 for(int i = 0; i < nbrPoints; i++) {
+			 String[] parts = line.split("\\s+");
+			 double x = Double.parseDouble(parts[0].trim());
+			 double y = Double.parseDouble(parts[1].trim());
+			 Point p = new Point(x, y);
+			 Plist.add(p);
+			 line = br.readLine();
+			 if(line != null) {
+				 line.trim();
+			 }
+		 }
 		//
 		// // skip until coordinates, handle 3 different cases (tsp, instance,
 		// in)
-		 while(line.contains(":") || line.contains("_")) {
-		 line = br.readLine().trim();
-		 }
+//		 while(line.contains(":") || line.contains("_")) {
+//		 line = br.readLine().trim();
+//		 }
 		 
-		 while(!line.contains("EOF")) {
-			 String[] parts = line.split("\\s+");
-			 double x = Double.parseDouble(parts[1].trim());
-			 double y = Double.parseDouble(parts[2].trim());
-			 Point p = new Point(x, y);
-			 Plist.add(p);
-			 line = br.readLine().trim();
-		 }
+//		 while(line != null && !line.contains("EOF")) {
+//			 String[] parts = line.split("\\s+");
+//			 double x = Double.parseDouble(parts[0].trim());
+//			 double y = Double.parseDouble(parts[1].trim());
+//			 Point p = new Point(x, y);
+//			 Plist.add(p);
+//			 line = br.readLine();
+//			 if(line != null) {
+//				 line.trim();
+//			 }
+//		 }
 		 
 			ArrayList<Point> Px = MergeSortX(Plist);
 			ArrayList<Point> Py = MergeSortY(Plist);
-			PointPair sol = CPRecursive(Px, Py);
+			PointPair sol = CPRecursive(Px);
 			System.out.println(sol.getDist());
 			
 			
@@ -140,7 +158,7 @@ public class CPMain {
 		}
 		if (SortedLeftList.size() == a) {
 			for (int i = b; i < SortedRightList.size(); i++) {
-				SortedList.add(SortedRightList.get(b));
+				SortedList.add(SortedRightList.get(i));
 			}
 		} else {
 			for (int i = a; i < SortedLeftList.size(); i++) {
@@ -189,11 +207,11 @@ public class CPMain {
 		}
 		if (SortedLeftList.size() == a) {
 			for (int i = b; i < SortedRightList.size(); i++) {
-				SortedList.add(SortedRightList.get(b));
+				SortedList.add(SortedRightList.get(i));
 			}
 		} else {
 			for (int i = a; i < SortedLeftList.size(); i++) {
-				SortedList.add(SortedLeftList.get(a));
+				SortedList.add(SortedLeftList.get(i));
 			}
 		}
 
@@ -205,7 +223,7 @@ public class CPMain {
 
 	// public ArrayList<Point> CPRecursive(ArrayList<Point> Px, ArrayList<Point>
 	// Py) {
-	public static PointPair CPRecursive(ArrayList<Point> Px, ArrayList<Point> Py) {
+	public static PointPair CPRecursive(ArrayList<Point> Px) {
 		PointPair minPair = null;
 
 		// Call recursive part P_x,y
@@ -229,9 +247,7 @@ public class CPMain {
 
 		// Split P_x,y into Q_x,y and R_x,y
 		ArrayList<Point> Qx = new ArrayList<Point>();
-		ArrayList<Point> Qy = new ArrayList<Point>();
 		ArrayList<Point> Rx = new ArrayList<Point>();
-		ArrayList<Point> Ry = new ArrayList<Point>();
 
 		for (int i = 0; i < Px.size(); i++) {
 			if (i < Px.size() / 2) {
@@ -241,17 +257,9 @@ public class CPMain {
 			}
 		}
 
-		for (int i = 0; i < Py.size(); i++) {
-			if (i < Py.size() / 2) {
-				Qy.add(Py.get(i));
-			} else {
-				Ry.add(Py.get(i));
-			}
-		}
-
 		// Make recursive call on Q_x,y and R_x,y
-		PointPair QPair = CPRecursive(Qx, Qy);
-		PointPair RPair = CPRecursive(Rx, Ry);
+		PointPair QPair = CPRecursive(Qx);
+		PointPair RPair = CPRecursive(Rx);
 		double dQ = QPair.getDist();
 		double dR = RPair.getDist();
 
@@ -291,13 +299,13 @@ public class CPMain {
 		// Compute distance from point i to i+15
 		// (s,s') is minimum dist pair
 		for (int i = 0; i < Sy.size(); i++) {
-			for (int j = i + 1; j < i + 16; j++) {
+			for (int j = i + 1; j < i + 8; j++) { //Changed 15 to 8
 				if (j < Sy.size()) {
 					Point s1 = Sy.get(i);
 					Point s2 = Sy.get(j);
 					double dist = s1.getDist(s2);
-					PointPair SPair = new PointPair(s1, s2, dist);
 					if (dist < minPair.getDist()) {
+						PointPair SPair = new PointPair(s1, s2, dist);
 						minPair = SPair;
 					}
 				}

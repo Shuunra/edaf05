@@ -13,15 +13,12 @@ public class SpanningMain {
 
 		// ArrayList<City> cities = new ArrayList<City>();
 		// ArrayList<Edge> edges = new ArrayList<Edge>();
-
-		// String filename =
-		// "C:\\Users\\Myky\\Documents\\edaf05_2\\algdes-labs-master\\spanning-usa\\data\\USA-highway-miles.txt";
-		// String filename =
-		// "C:\\Users\\Myky\\Documents\\edaf05_2\\algdes-labs-master\\spanning-usa\\data\\tinyEWG-alpha.txt";
-		// String filename =
-		// "C:\\Users\\Shintai\\Desktop\\edaf05\\algdes-labs-master\\spanning-usa\\data\\tinyEWG-alpha.txt";
 		//String filename = "/Users/richardluong/Downloads/edaf05-master 2/in3/USA-highway-miles.in";
-		 String filename = "C:\\Users\\Shintai\\Desktop\\edaf05\\algdes-labs-master\\spanning-usa\\data\\USA-highway-miles.txt";
+		// String filename = "C:\\Users\\Myky\\Documents\\edaf05_2\\algdes-labs-master\\spanning-usa\\data\\USA-highway-miles.txt";
+		// String filename = "C:\\Users\\Myky\\Documents\\edaf05_2\\algdes-labs-master\\spanning-usa\\data\\tinyEWG-alpha.txt";
+		
+		//String filename = "C:\\Users\\Shintai\\Desktop\\edaf05\\algdes-labs-master\\spanning-usa\\data\\tinyEWG-alpha.txt";
+		String filename = "C:\\Users\\Shintai\\Desktop\\edaf05\\algdes-labs-master\\spanning-usa\\data\\USA-highway-miles.txt";
 
 		try {
 
