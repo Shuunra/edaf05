@@ -11,7 +11,9 @@ public class GorillaMain {
 
 		ArrayList<String> names = new ArrayList<String>();
 		HashMap<String, DNA> DNAlist = new HashMap<String, DNA>();
-		String filename = "C:\\Users\\Shintai\\Desktop\\edaf05\\algdes-labs-master\\gorilla\\data\\Toy_FASTAs-in.txt";
+		String filename = "C:\\Users\\Myky\\Documents\\edaf05_2\\algdes-labs-master\\gorilla\\data\\HbB_FASTAs-in.txt";
+		//String filename = "C:\\Users\\Myky\\Documents\\edaf05_2\\algdes-labs-master\\gorilla\\data\\Toy_FASTAs-in.txt";
+		//String filename = "C:\\Users\\Shintai\\Desktop\\edaf05\\algdes-labs-master\\gorilla\\data\\Toy_FASTAs-in.txt";
 
 		char[] ALPHABET = "ARNDCQEGHILKMFPSTWYVBZX".toCharArray();
 		HashMap<Character, Integer> char2id = new HashMap<Character, Integer>();
@@ -82,6 +84,10 @@ public class GorillaMain {
 				} else {
 					sb.append(line2);
 					line2 = br.readLine();
+					if(line2 == null) {
+						DNAlist.put(name2, new DNA(name2, sb.toString()));
+						names.add(name2);
+					}
 				}
 			}
 
@@ -124,52 +130,54 @@ public class GorillaMain {
 			}
 		}
 
-		String Sequence1 = null;
-		String Sequence2 = null;
-		int i = 0;
-		int j = 0;
+		String Sequence1 = "";
+		String Sequence2 = "";
+		int i = dna_1.getDNA().length();
+		int j = dna_2.getDNA().length();
 
-		while (i < m - 1 && j < n - 1) {
-			// int score = M[i][j];
-			int moveRight = M[i][j + 1];
-			int moveDown = M[i + 1][j];
-			int moveDiag = M[i + 1][j + 1];
-			int highestScore = maxVal(moveRight, moveDown, moveDiag);
-			if (highestScore == moveRight) {
-				Sequence1 = Sequence1 + dna_1.getDNA().charAt(i + 1);
-				Sequence2 = Sequence2 + "-";
-				i++;
+		while (i > 0 && j > 0) { //Osäker
+			int score = M[i][j];
+			int moveLeft = M[i][j - 1] + delta;
+			int moveUp = M[i - 1][j] + delta;
+			char currRowLetter = dna_1.getDNA().charAt(i - 1);
+			char currColLetter = dna_2.getDNA().charAt(j - 1);
+			int rowInd = char2id.get(currRowLetter);
+			int colInd = char2id.get(currColLetter);
+			int moveDiag = M[i - 1][j - 1] + alpha[rowInd][colInd]; // Gå bakåt 
+			//int highestScore = maxVal(moveLeft, moveUp, moveDiag);
+			if (score == moveDiag) {
+				Sequence1 = dna_1.getDNA().charAt(i - 1) + Sequence1;
+				Sequence2 = dna_2.getDNA().charAt(j - 1) + Sequence2;
+				i--;
+				j--;
 
-			} else if (highestScore == moveDown) {
-				Sequence1 = Sequence1 + "-";
-				Sequence2 = Sequence2 + dna_2.getDNA().charAt(j + 1);
-				j++;
+			} else if (score == moveUp) {
+				Sequence1 = dna_1.getDNA().charAt(i - 1) + Sequence1;
+				Sequence2 = "-" + Sequence2;
+				i--;
 
-			} else if (highestScore == moveDiag) {
-				Sequence1 = Sequence1 + dna_1.getDNA().charAt(i + 1);
-				Sequence2 = Sequence2 + dna_2.getDNA().charAt(j + 1);
-				i++;
-				j++;
+			} else if (score == moveLeft) {
+				Sequence1 = "-" + Sequence1;
+				Sequence2 = dna_2.getDNA().charAt(j - 1) + Sequence2;
+				j--;
 			}
 		}
-		if (i == m - 1 && j == n - 1) {
-			Sequence1 = Sequence1 + dna_1.getDNA().charAt(i + 1);
-			Sequence2 = Sequence2 + dna_2.getDNA().charAt(j + 1);
-		} else if (i == m - 1) {
-			while (j < n) {
-				Sequence1 = Sequence1 + dna_1.getDNA().charAt(i + 1);
-				Sequence2 = Sequence2 + "-";
-				i++;
-			}
-		} else {
-			while (i < m) {
-				Sequence1 = Sequence1 + "-";
-				Sequence2 = Sequence2 + dna_2.getDNA().charAt(j + 1);
-				j++;
+		
+		if (i == 0) {
+			while (0 < j) {
+				Sequence1 = "-" + Sequence1;
+				Sequence2 = dna_2.getDNA().charAt(j - 1) + Sequence2;
+				j--;
+			} 
+		} else if (j == 0) {
+			while (0 < i) {
+				Sequence1 = dna_1.getDNA().charAt(i - 1) + Sequence1;
+				Sequence2 = "-" + Sequence2;
+				i--;
 			}
 		}
-
-		System.out.println(dna_1.getName().toString() + "--" + dna_2.getName().toString() + ":" + M[m][n]);
+		
+		System.out.println(dna_1.getName().toString() + "--" + dna_2.getName().toString() + ": " + M[m][n]);
 		System.out.println(Sequence1.toString());
 		System.out.println(Sequence2.toString());
 	}
