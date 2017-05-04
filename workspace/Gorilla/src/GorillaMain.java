@@ -4,7 +4,7 @@ import java.util.HashMap;
 public class GorillaMain {
 	
 	public static void main(String[] args) {
-		
+
 		char[] ALPHABET = "ARNDCQEGHILKMFPSTWYVBZX".toCharArray();
 		HashMap<Character, Integer> char2id = new HashMap<Character, Integer>();
 		for(int i = 0; i < ALPHABET.length; i++) {
@@ -50,6 +50,8 @@ public class GorillaMain {
 //								delta + M[i-1, j], delta + M[i, j-1])
 
 //		RETURN M[m,n]
+	
+	
 
 	
 	public void SequenceAlignment (DNA dna_1, DNA dna_2) {
@@ -73,12 +75,44 @@ public class GorillaMain {
 				char currRowLetter = dna_1.getDNA().charAt(i-1);
 				char currColLetter = dna_2.getDNA().charAt(j-1);
 				// Beher komma  boksternas index i blossummatrisen
-				int rowInd = blosumChars.indexOf(currRowLetter);
-				int colInd = blosumChars.indexOf(currColLetter);
+				int rowInd = char2id.get(currRowLetter);
+				int colInd = char2id.get(currColLetter);
 				M[i][j] = maxVal(alpha[rowInd][colInd] + M[i - 1][j - 1],
 								delta + M[i - 1][j], delta + M[i][j - 1]);
 			}
 		}
+		
+		String Sequence1;
+		String Sequence2;
+		//int m = dna_1.getDNA().length();
+		//int n = dna_2.getDNA().length();
+		int i = 0;
+		int j = 0;
+	
+		while (i < m && j < n) {
+			int score = M[i][j];
+			int moveRight = M[i][j + 1];
+			int moveDown = M[i + 1][j];
+			int moveDiag = M[i + 1][j + 1];
+			int highestScore = maxVal(moveRight, moveDown, moveDiag);
+			if (highestScore == moveRight) {
+				Sequence1 = Sequence1 + dna_1.getDNA().charAt(i + 1);
+				Sequence2 = Sequence2 + "-";
+				
+			} else if (highestScore == moveDown) {
+				Sequence1 = Sequence1 + "";
+				Sequence2 = Sequence2 + dna_2.getDNA().charAt(j + 1);
+				
+			} else if(highestScore == moveDiag) {
+				Sequence1 = Sequence1 + dna_1.getDNA().charAt(i + 1);
+				Sequence2 = Sequence2 + dna_2.getDNA().charAt(j + 1);
+			}
+		
+			i++;
+			j++;
+		}
+		
+		
 	}
 	
 	private int maxVal (int a, int b, int c) {
