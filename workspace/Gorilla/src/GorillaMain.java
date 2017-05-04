@@ -9,8 +9,9 @@ public class GorillaMain {
 
 	public static void main(String[] args) {
 
+		ArrayList<String> names = new ArrayList<String>();
 		HashMap<String, DNA> DNAlist = new HashMap<String, DNA>();
-		String filename = "C:\\Users\\Shintai\\Desktop\\edaf05\\algdes-labs-master\\gorilla\\data\\HbB_FASTAs-in.txt";
+		String filename = "C:\\Users\\Shintai\\Desktop\\edaf05\\algdes-labs-master\\gorilla\\data\\Toy_FASTAs-in.txt";
 
 		char[] ALPHABET = "ARNDCQEGHILKMFPSTWYVBZX".toCharArray();
 		HashMap<Character, Integer> char2id = new HashMap<Character, Integer>();
@@ -70,20 +71,25 @@ public class GorillaMain {
 			name2 = parts2[0].substring(1).trim();
 			line2 = br.readLine().trim();
 			while (line2 != null) {
+				line2.trim();
 				if (line2.charAt(0) == '>') {
 					DNAlist.put(name2, new DNA(name2, sb.toString()));
+					names.add(name2);
 					parts2 = line2.split("\\s");
 					name2 = parts2[0].substring(1).trim();
 					line2 = br.readLine().trim();
 					sb.delete(0, sb.length());
 				} else {
 					sb.append(line2);
-					line2 = br.readLine().trim();
+					line2 = br.readLine();
 				}
 			}
 
-			SequenceAlignment(DNAlist.get(parts2[1]), DNAlist.get(parts2[2]), blosum, char2id);
-
+			for (int i = 0; i < names.size() - 1; i++) {
+				for (int j = i + 1; j < names.size(); j++) {
+					SequenceAlignment(DNAlist.get(names.get(i)), DNAlist.get(names.get(j)), blosum, char2id);
+				}
+			}
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -123,7 +129,7 @@ public class GorillaMain {
 		int i = 0;
 		int j = 0;
 
-		while (i < m && j < n) {
+		while (i < m - 1 && j < n - 1) {
 			// int score = M[i][j];
 			int moveRight = M[i][j + 1];
 			int moveDown = M[i + 1][j];
@@ -146,8 +152,24 @@ public class GorillaMain {
 				j++;
 			}
 		}
-		
-		System.out.println(dna_1.getName().toString() + "--" + dna_2.getName().toString() + ":" + M[m][n] );
+		if (i == m - 1 && j == n - 1) {
+			Sequence1 = Sequence1 + dna_1.getDNA().charAt(i + 1);
+			Sequence2 = Sequence2 + dna_2.getDNA().charAt(j + 1);
+		} else if (i == m - 1) {
+			while (j < n) {
+				Sequence1 = Sequence1 + dna_1.getDNA().charAt(i + 1);
+				Sequence2 = Sequence2 + "-";
+				i++;
+			}
+		} else {
+			while (i < m) {
+				Sequence1 = Sequence1 + "-";
+				Sequence2 = Sequence2 + dna_2.getDNA().charAt(j + 1);
+				j++;
+			}
+		}
+
+		System.out.println(dna_1.getName().toString() + "--" + dna_2.getName().toString() + ":" + M[m][n]);
 		System.out.println(Sequence1.toString());
 		System.out.println(Sequence2.toString());
 	}

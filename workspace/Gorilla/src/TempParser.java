@@ -28,7 +28,7 @@ public class TempParser {
 			for (int i = 0; i < queryNbr; i++) {
 				line = br.readLine().trim();
 				parts = line.split("\\s");
-				SequenceAlignment(DNAlist.get(parts[1]), DNAlist.get(parts[2]));
+				//SequenceAlignment(DNAlist.get(parts[1]), DNAlist.get(parts[2]));
 				// Call method on parts[1] and parts[2], aka. use SequenceAlignment on the string
 			}
 
