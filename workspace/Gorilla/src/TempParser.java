@@ -3,12 +3,14 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class TempParser {
 
 	public static void main(String[] args) {
 		
-		ArrayList<DNA> DNAlist = new ArrayList<DNA>();
+		//ArrayList<DNA> DNAlist = new ArrayList<DNA>();
+		HashMap<String, DNA> DNAlist = new HashMap<String, DNA>();
 		String filename = "C:\\Users\\Shintai\\Desktop\\edaf05\\algdes-labs-master\\gorilla\\data\\HbB_FASTAs-in.txt";
 
 		try {
@@ -21,11 +23,12 @@ public class TempParser {
 			for (int i = 0; i < inputNbr; i++) {
 				String name = br.readLine().trim();
 				String DNA = br.readLine().trim();
-				DNAlist.add(new DNA(name, DNA));
+				DNAlist.put(name, new DNA(name, DNA));
 			}
 			for (int i = 0; i < queryNbr; i++) {
 				line = br.readLine().trim();
 				parts = line.split("\\s");
+				SequenceAlignment(DNAlist.get(parts[1]), DNAlist.get(parts[2]));
 				// Call method on parts[1] and parts[2], aka. use SequenceAlignment on the string
 			}
 
@@ -39,7 +42,7 @@ public class TempParser {
 			line2 = br.readLine().trim();
 			while (line2 != null) {
 				if (line2.charAt(0) == '>') {
-					DNAlist.add(new DNA(name2, sb.toString()));		//Add to list with all species
+					DNAlist.put(name2, new DNA(name2, sb.toString()));		//Add to list with all species
 					parts2 = line2.split("\\s");
 					name2 = parts2[0].substring(1).trim();
 					line2 = br.readLine().trim();
