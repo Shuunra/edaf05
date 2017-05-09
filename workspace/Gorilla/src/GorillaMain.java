@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -46,56 +47,57 @@ public class GorillaMain {
 				{ 0, -1, -1, -1, -2, -1, -1, -1, -1, -1, -1, -1, -1, -1, -2, 0, 0, -2, -1, -1, -1, -1, -1 } };
 
 		try {
-			BufferedReader br = new BufferedReader(new FileReader(filename));
-			// // Kattis
-			// String line = br.readLine().trim();
-			// String[] parts = line.split("\\s");
-			// int inputNbr = Integer.parseInt(parts[0]);
-			// int queryNbr = Integer.parseInt(parts[1]);
-			// for (int i = 0; i < inputNbr; i++) {
-			// String name = br.readLine().trim();
-			// String DNA = br.readLine().trim();
-			// DNAlist.put(name, new DNA(name, DNA));
-			// }
-			// for (int i = 0; i < queryNbr; i++) {
-			// line = br.readLine().trim();
-			// parts = line.split("\\s");
-			// SequenceAlignment(DNAlist.get(parts[1]), DNAlist.get(parts[2]),
-			// blosum, DNAlist);
-			// }
+			 // Kattis
+			 BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+			 String line = br.readLine().trim();
+			 String[] parts = line.split("\\s");
+			 int inputNbr = Integer.parseInt(parts[0]);
+			 int queryNbr = Integer.parseInt(parts[1]);
+			 for (int i = 0; i < inputNbr; i++) {
+			 String name = br.readLine().trim();
+			 String DNA = br.readLine().trim();
+			 DNAlist.put(name, new DNA(name, DNA));
+			 names.add(name);
+			 }
+			 for (int i = 0; i < queryNbr; i++) {
+			 line = br.readLine().trim();
+			 parts = line.split("\\s");
+			 SequenceAlignment(DNAlist.get(parts[0]), DNAlist.get(parts[1]), blosum, char2id);
+			 }
 
 			// Input file
-			String line2 = br.readLine().trim();
-			String[] parts2;
-			String name2 = "";
-			StringBuilder sb = new StringBuilder();
-			parts2 = line2.split("\\s");
-			name2 = parts2[0].substring(1).trim();
-			line2 = br.readLine().trim();
-			while (line2 != null) {
-				line2.trim();
-				if (line2.charAt(0) == '>') {
-					DNAlist.put(name2, new DNA(name2, sb.toString()));
-					names.add(name2);
-					parts2 = line2.split("\\s");
-					name2 = parts2[0].substring(1).trim();
-					line2 = br.readLine().trim();
-					sb.delete(0, sb.length());
-				} else {
-					sb.append(line2);
-					line2 = br.readLine();
-					if(line2 == null) {
-						DNAlist.put(name2, new DNA(name2, sb.toString()));
-						names.add(name2);
-					}
-				}
-			}
-
-			for (int i = 0; i < names.size() - 1; i++) {
-				for (int j = i + 1; j < names.size(); j++) {
-					SequenceAlignment(DNAlist.get(names.get(i)), DNAlist.get(names.get(j)), blosum, char2id);
-				}
-			}
+//			BufferedReader br = new BufferedReader(new FileReader(filename));
+//			String line2 = br.readLine().trim();
+//			String[] parts2;
+//			String name2 = "";
+//			StringBuilder sb = new StringBuilder();
+//			parts2 = line2.split("\\s");
+//			name2 = parts2[0].substring(1).trim();
+//			line2 = br.readLine().trim();
+//			while (line2 != null) {
+//				line2.trim();
+//				if (line2.charAt(0) == '>') {
+//					DNAlist.put(name2, new DNA(name2, sb.toString()));
+//					names.add(name2);
+//					parts2 = line2.split("\\s");
+//					name2 = parts2[0].substring(1).trim();
+//					line2 = br.readLine().trim();
+//					sb.delete(0, sb.length());
+//				} else {
+//					sb.append(line2);
+//					line2 = br.readLine();
+//					if(line2 == null) {
+//						DNAlist.put(name2, new DNA(name2, sb.toString()));
+//						names.add(name2);
+//					}
+//				}
+//			}
+//
+//			for (int i = 0; i < names.size() - 1; i++) {
+//				for (int j = i + 1; j < names.size(); j++) {
+//					SequenceAlignment(DNAlist.get(names.get(i)), DNAlist.get(names.get(j)), blosum, char2id);
+//				}
+//			}
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -135,7 +137,7 @@ public class GorillaMain {
 		int i = dna_1.getDNA().length();
 		int j = dna_2.getDNA().length();
 
-		while (i > 0 && j > 0) { //Osäker
+		while (i > 0 && j > 0) { //Unsure
 			int score = M[i][j];
 			int moveLeft = M[i][j - 1] + delta;
 			int moveUp = M[i - 1][j] + delta;
@@ -143,7 +145,7 @@ public class GorillaMain {
 			char currColLetter = dna_2.getDNA().charAt(j - 1);
 			int rowInd = char2id.get(currRowLetter);
 			int colInd = char2id.get(currColLetter);
-			int moveDiag = M[i - 1][j - 1] + alpha[rowInd][colInd]; // Gå bakåt 
+			int moveDiag = M[i - 1][j - 1] + alpha[rowInd][colInd]; // Go backwards
 			//int highestScore = maxVal(moveLeft, moveUp, moveDiag);
 			if (score == moveDiag) {
 				Sequence1 = dna_1.getDNA().charAt(i - 1) + Sequence1;
@@ -177,7 +179,7 @@ public class GorillaMain {
 			}
 		}
 		
-		System.out.println(dna_1.getName().toString() + "--" + dna_2.getName().toString() + ": " + M[m][n]);
+		//System.out.println(dna_1.getName().toString() + "--" + dna_2.getName().toString() + ": " + M[m][n]);	//Comment this row when trying for Kattis
 		System.out.println(Sequence1.toString());
 		System.out.println(Sequence2.toString());
 	}
