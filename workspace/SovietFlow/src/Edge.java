@@ -6,6 +6,7 @@ public class Edge {
 	private int realFlow;
 	private int forwardFlow;
 	//private int reverseFlow;
+	private boolean mcc = false;
 	
 	// Reverse edge?
 	Edge reverseEdge;
@@ -53,4 +54,11 @@ public class Edge {
 		reverseEdge.setCFlow(newFlow);
 	}
 	
+	public boolean getMinCut() {
+		return mcc;
+	}
+	
+	public void setMinCut(boolean b) {
+		mcc = b;
+	}
 }

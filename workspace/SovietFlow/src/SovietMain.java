@@ -133,12 +133,15 @@ public class SovietMain {
 			Edge e = source.getEdges().get(i);
 			if (e.getFFlow() > 0) { // Add to reachable if forwardFlow > 0
 				GfTree.add(e);
+				e.setMinCut(true);
 				source.setMinCut(true); // Has contributed to the tree
 				if (GfNode.contains(railway.get(e.getSink()))) {
 					GfNode.add(railway.get(e.getSource()));
 				} else {
 					GfNode.add(railway.get(e.getSink()));
 				}
+			} else {
+				MinCutEdge.add(e); //Did not contribute to extend tree
 			}
 		}
 		if (GfNode.size() == 1) { // MinCut is the source
@@ -153,23 +156,26 @@ public class SovietMain {
 				if (!GfTree.contains(e)) {
 					if (e.getFFlow() > 0) {
 						GfTree.add(e);
+						e.setMinCut(true);
 						node.setMinCut(true);
 						if (GfNode.contains(railway.get(e.getSink()))) {
 							GfNode.add(railway.get(e.getSource()));
 						} else {
 							GfNode.add(railway.get(e.getSink()));
 						}
+					} else {
+						MinCutEdge.add(e);
 					}
 				}
-				// Add outermost nodes to MinCutEdge
-				if (node.getMinCut() == false) {
-					MinCutStation.add(node);
-					for (int j = 0; j < node.getEdges().size(); j++) {
-						if (!GfTree.contains(node.getEdges().get(j))) {
-							MinCutEdge.add(node.getEdges().get(j));
-						}
-					}
-				}
+				// Add outermost nodes to MinCutStation
+//				if (node.getMinCut() == false) {
+//					MinCutStation.add(node);
+//					for (int j = 0; j < node.getEdges().size(); j++) {
+//						if (!GfTree.contains(node.getEdges().get(j))) {
+//							MinCutEdge.add(node.getEdges().get(j));
+//						}
+//					}
+//				}
 			}
 			counter++;
 		}
